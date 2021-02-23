@@ -22,8 +22,8 @@ model ThingOne {
 model ThingTwo {
   id String @id @default(uuid())
 
-  thingOne          ThingOne  @relation("OneReferenceOnThingTwo", fields: [thingOneId], references: [id])
-  thingOneId        String
-  anotherThingOne   ThingOne? @relation("AnotherReferenceOnThingTwo", fields: [anotherThingOneId], references: [id])
-  anotherThingOneId String?
+  oneReferenceToThingOne       ThingOne  @relation("OneReferenceOnThingTwo", fields: [oneReferenceToThingOneId], references: [id])
+  oneReferenceToThingOneId     String
+  anotherReferenceToThingOne   ThingOne? @relation("AnotherReferenceOnThingTwo", fields: [anotherReferenceToThingOneId], references: [id])
+  anotherReferenceToThingOneId String?
 }
