@@ -1,0 +1,29 @@
+datasource DS {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = "native"
+}
+
+// Define your own datamodels here and run `yarn redwood prisma migrate dev`
+// to create migrations for them and apply to your dev DB.
+// TODO: Please remove the following example:
+model ThingOne {
+  id   String @id @default(uuid())
+  name String // Why is this needed?
+
+  oneReferencesOnThingTwo      ThingTwo[] @relation("OneReferenceOnThingTwo")
+  anotherReferencessOnThingTwo ThingTwo[] @relation("AnotherReferenceOnThingTwo")
+}
+
+model ThingTwo {
+  id String @id @default(uuid())
+
+  thingOne          ThingOne  @relation("OneReferenceOnThingTwo", fields: [thingOneId], references: [id])
+  thingOneId        String
+  anotherThingOne   ThingOne? @relation("AnotherReferenceOnThingTwo", fields: [anotherThingOneId], references: [id])
+  anotherThingOneId String?
+}
